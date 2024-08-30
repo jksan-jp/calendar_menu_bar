@@ -22,12 +22,14 @@ RUN flutter precache
 RUN flutter doctor
 
 # Android SDKのインストール
-RUN mkdir -p /usr/local/android-sdk
 ENV ANDROID_SDK_ROOT /usr/local/android-sdk
+ENV ANDROID_HOME /usr/local/android-sdk
+RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools
 RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O android-sdk.zip \
-    && unzip -q android-sdk.zip -d ${ANDROID_SDK_ROOT} \
+    && unzip -q android-sdk.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools \
+    && mv ${ANDROID_SDK_ROOT}/cmdline-tools/cmdline-tools ${ANDROID_SDK_ROOT}/cmdline-tools/latest \
     && rm android-sdk.zip
-ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin"
+ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools"
 
 # Android SDKのコンポーネントインストール
 RUN yes | sdkmanager --licenses
