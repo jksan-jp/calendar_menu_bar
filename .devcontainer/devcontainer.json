@@ -1,0 +1,17 @@
+{
+	"name": "Flutter Development",
+	"build": {
+			"dockerfile": "../Dockerfile",
+			"context": "."
+	},
+	"settings": {
+			"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+			"dart-code.flutter",
+			"dart-code.dart-code"
+	],
+	"forwardPorts": [8080],
+	"postCreateCommand": "flutter pub get",
+	"remoteUser": "root"
+}
